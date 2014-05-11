@@ -292,7 +292,13 @@ onClick:function(){
 
 Entity.setRenderType(getPlayerEnt(), 12);
 Entity.setMobSkin(getPlayerEnt(), "mob/skeleton.png");
+
+if(getCarriedItem()!=0){
 Entity.setCarriedItem(getPlayerEnt(), 261, 1);
+}else if(getCarriedItem()==0){
+addItemInventory(261,1);
+}
+
 addItemInventory(262,64);
 clientMessage("You are a skeleton.");
 disguisedi.dismiss();
@@ -333,7 +339,13 @@ onClick:function(){
 
 Entity.setRenderType(getPlayerEnt(), 3);
 Entity.setMobSkin(getPlayerEnt(), "mob/pigzombie.png");
+
+if(getCarriedItem()!=0){
 Entity.setCarriedItem(getPlayerEnt(), 283, 1);
+}else if(getCarriedItem()==0){
+addItemInventory(283,1);
+}
+
 clientMessage("You are a zombiepigman.");
 disguisedi.dismiss();
 
