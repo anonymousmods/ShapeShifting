@@ -72,6 +72,7 @@ var flying = 0;
 var fall;
 var jumpon = 0;
 var explodecountdown = 25;
+var age;
 
 
 var fire=-1;
@@ -312,13 +313,14 @@ print("Error: " + e);
 function explodee(){
 
 
-Level.setSpawn(Player.getX(),Player.getY(),Player.getZ());
+//Level.setSpawn(Player.getX(),Player.getY(),Player.getZ());
 
 
-Player.setHealth(0);
+//Player.setHealth(0);
 
 
 Level.explode(getPlayerX(), getPlayerY(), getPlayerZ(), 3);
+Player.setHealth(50);
 
 
 }
@@ -473,6 +475,12 @@ clientMessage("Shape Shifting On");
 Entity.setHealth(getPlayerEnt(), 20);
 Entity.setSneaking(getPlayerEnt(), false);
 
+if(Entity.getRenderType(getPlayerEnt())==3){
+
+Entity.setAnimalAge(getPlayerEnt(), 0);
+
+}
+
 
 ctx.runOnUiThread(new Runnable({
 run:function(){
@@ -495,6 +503,12 @@ clientMessage("Shape Shifting Off");
 disguisedi.dismiss();
 Entity.setHealth(getPlayerEnt(), 20);
 Entity.setSneaking(getPlayerEnt(), false);
+
+if(Entity.getRenderType(getPlayerEnt())==3){
+
+Entity.setAnimalAge(getPlayerEnt(), 0);
+
+}
 
 
 ctx.runOnUiThread(new Runnable({
@@ -840,6 +854,7 @@ onClick:function(){
 Entity.setRenderType(getPlayerEnt(), WolfRenderType.renderType);
 Entity.setHealth(getPlayerEnt(), 20);
 disguisedi.dismiss();
+Entity.setMobSkin(getPlayerEnt(), "mob/wolf.png");
 
 
 ctx.runOnUiThread(new Runnable({
@@ -868,6 +883,7 @@ onClick:function(){
 Entity.setRenderType(getPlayerEnt(), OcelotRenderType.renderType);
 Entity.setHealth(getPlayerEnt(), 20);
 disguisedi.dismiss();
+Entity.setMobSkin(getPlayerEnt(), "mob/oscelot.png");
 
 
 ctx.runOnUiThread(new Runnable({
@@ -1050,6 +1066,7 @@ clientMessage("You are undisguised.");
 disguisedi.dismiss();
 btnview = 0;
 Entity.setHealth(getPlayerEnt(), 20);
+Entity.setAnimalAge(getPlayerEnt(), 0);
 
 
 ctx.runOnUiThread(new Runnable({
@@ -1454,6 +1471,7 @@ flyingon = 0;
 stickonwalls = 0;
 flying = 0;
 shapeshifting = 0;
+Entity.setAnimalAge(getPlayerEnt(), 0);
 
 
 ctx.runOnUiThread(new Runnable(){
@@ -1634,6 +1652,26 @@ if(flyingon==true && flycountdown==1){
 }
 
 
+function destroyBlock(x, y, z) {
+
+
+if(getTile(x, y, z)==2 && Entity.getRenderType(getPlayerEnt())==9){
+
+
+var grassheal=Entity.getHealth(Player.getEntity());
+grassheal++;
+
+preventDefault();
+setTile(x, y, z, 3);
+Player.setHealth(grassheal);
+
+
+}
+
+
+} 
+
+
 function toDirectionalVector(vector, yaw, pitch) {
 
 
@@ -1805,6 +1843,14 @@ fly()
 
 
 function attackHook(attacker, victim){
+
+
+if(shapeshifting==1 && attacker==getPlayerEnt()){
+
+
+age = Entity.getAnimalAge(victim);
+
+}
 
 
 if(victim==getPlayerEnt()){
