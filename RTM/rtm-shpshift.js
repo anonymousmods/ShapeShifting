@@ -450,7 +450,7 @@ disguisela.addView(zombiepigbtn);
 //disguisela.addView(catbtn); 
 //disguisela.addView(irongolembtn);
 disguisela.addView(endermanbtn);
-//disguisela.addView(silverfishbtn);
+disguisela.addView(silverfishbtn);
 disguisela.addView(witherbtn);
 //disguisela.addView(blazebtn);
 disguisela.addView(invisiblebtn);
@@ -969,6 +969,7 @@ onClick:function(){
 
 
 Entity.setRenderType(getPlayerEnt(), 19);
+Entity.setMobSkin(getPlayerEnt(), "mob/enderman.png"); 
 clientMessage("You are an enderman.");
 disguisedi.dismiss();
 btnview = 0;
