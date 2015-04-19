@@ -62,18 +62,19 @@ var cow;
 var chicken;
 var pig;
 var sheep;
+var villager;
 var zombie;
 var spider;
 var creeper;
 var skeleton;
 var pigzombie;
+var silverfish;
 var steve;
 var flying = 0;
 var fall;
 var jumpon = 0;
 var explodecountdown = 25;
 var age;
-
 
 var fire=-1;
 var ball;
@@ -216,7 +217,7 @@ onClick: function(viewarg)
 {
 
 
-if(Entity.getRenderType(getPlayerEnt())==6){
+if(Entity.getRenderType(getPlayerEnt())==5){
 
 
 setVelY(getPlayerEnt(),0.5);
@@ -225,7 +226,7 @@ setVelY(getPlayerEnt(),0.5);
 }
 
 
-if(Entity.getRenderType(getPlayerEnt())==13){
+if(Entity.getRenderType(getPlayerEnt())==15){
 
 
 if(stickonwalls==0){
@@ -240,7 +241,7 @@ Entity.setSneaking(getPlayerEnt(), false);
 }
 
 
-if(Entity.getRenderType(getPlayerEnt())==14){
+if(Entity.getRenderType(getPlayerEnt())==17){
 
 
 Level.playSound(getPlayerX(), getPlayerY(), getPlayerZ(), "random.fuse", 100, 30);
@@ -263,11 +264,7 @@ Entity.setRenderType(ball, ballRenderer.renderType);
 setVelX(ball,3*dirx); 
 setVelY(ball,3*dirz); 
 setVelZ(ball,3*diry);
-
-
 }
-
-
 }
 }));
 
@@ -347,6 +344,7 @@ var pigbtn = new Button(ctx);
 var cowbtn = new Button(ctx);
 var chickenbtn = new Button(ctx);
 var sheepbtn = new Button(ctx);
+var villagerbtn = new Button(ctx);
 var zombiebtn = new Button(ctx);
 var skeletonbtn = new Button(ctx);
 var spiderbtn = new Button(ctx);
@@ -354,6 +352,7 @@ var creeperbtn = new Button(ctx);
 var zombiepigbtn = new Button(ctx);
 var irongolembtn = new Button(ctx);
 var endermanbtn = new Button(ctx);
+var silverfishbtn = new Button(ctx);
 var wolfbtn = new Button(ctx);
 var catbtn = new Button(ctx);
 var witherbtn = new Button(ctx);
@@ -369,6 +368,7 @@ pigbtn.setText("Pig");
 cowbtn.setText("Cow");
 chickenbtn.setText("Chicken");
 sheepbtn.setText("Sheep");
+villagerbtn.setText("Villager");
 zombiebtn.setText("Zombie");
 skeletonbtn.setText("Skeleton");
 spiderbtn.setText("Spider");
@@ -380,6 +380,7 @@ wolfbtn.setText("Wolf");
 catbtn.setText("Oscelot");
 witherbtn.setText("Wither");
 blazebtn.setText("Blaze");
+silverfishbtn.setText("Silverfish");
 invisiblebtn.setText("Invisible");
 playerbtn.setText("Undisguise");
 
@@ -407,6 +408,8 @@ chickenbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 chickenbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 sheepbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 sheepbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+villagerbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+villagerbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 zombiebtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 zombiebtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 skeletonbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -421,6 +424,8 @@ irongolembtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 irongolembtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 endermanbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 endermanbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+silverfishbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+silverfishbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 witherbtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 witherbtn.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
 invisiblebtn.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -434,15 +439,18 @@ disguisela.addView(pigbtn);
 disguisela.addView(cowbtn);
 disguisela.addView(chickenbtn);
 disguisela.addView(sheepbtn);
+disguisela.addView(villagerbtn);
+disguisela.addView(villagerbtn);
 disguisela.addView(zombiebtn);
 disguisela.addView(skeletonbtn);
 disguisela.addView(spiderbtn);
 disguisela.addView(creeperbtn);
 disguisela.addView(zombiepigbtn);
-//disguisela.addView(wolfbtn);
-//disguisela.addView(catbtn); 
-//disguisela.addView(irongolembtn);
-//disguisela.addView(endermanbtn);
+disguisela.addView(wolfbtn);
+disguisela.addView(catbtn); 
+disguisela.addView(irongolembtn);
+disguisela.addView(endermanbtn);
+disguisela.addView(silverfishbtn);
 disguisela.addView(witherbtn);
 //disguisela.addView(blazebtn);
 disguisela.addView(invisiblebtn);
@@ -570,7 +578,7 @@ cowbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 7);
+Entity.setRenderType(getPlayerEnt(), 6);
 Entity.setMobSkin(getPlayerEnt(), "mob/cow.png");
 clientMessage("You are a cow.");
 disguisedi.dismiss();
@@ -603,7 +611,7 @@ chickenbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 6);
+Entity.setRenderType(getPlayerEnt(), 5);
 Entity.setMobSkin(getPlayerEnt(), "mob/chicken.png");
 clientMessage("You are a chicken.");
 disguisedi.dismiss();
@@ -660,6 +668,34 @@ print("Error: "+e);
 
 }));
 
+villagerbtn.setOnClickListener(new View.OnClickListener({
+
+
+onClick:function(){
+
+
+villagertypepick();
+disguise = villager;
+disguisedi.dismiss();
+Entity.setSneaking(getPlayerEnt(), false);
+Entity.setHealth(getPlayerEnt(), 20);
+
+
+ctx.runOnUiThread(new Runnable({
+run:function(){
+try{
+fbutton.setVisibility(View.INVISIBLE);
+}catch(e){
+print("Error: "+e);
+}
+}
+}));
+
+
+}
+
+
+}));
 
 zombiebtn.setOnClickListener(new View.OnClickListener({
 
@@ -667,7 +703,7 @@ zombiebtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 11);
+Entity.setRenderType(getPlayerEnt(), 13);
 Entity.setMobSkin(getPlayerEnt(), "mob/zombie.png");
 clientMessage("You are a zombie.");
 disguisedi.dismiss();
@@ -701,7 +737,7 @@ skeletonbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 12);
+Entity.setRenderType(getPlayerEnt(), 14);
 Entity.setMobSkin(getPlayerEnt(), "mob/skeleton.png");
 disguise = skeleton;
 Entity.setSneaking(getPlayerEnt(), false);
@@ -744,7 +780,7 @@ spiderbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 13);
+Entity.setRenderType(getPlayerEnt(), 15);
 Entity.setMobSkin(getPlayerEnt(), "mob/spider.png");
 clientMessage("You are a spider.");
 disguisedi.dismiss();
@@ -777,7 +813,7 @@ creeperbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 14);
+Entity.setRenderType(getPlayerEnt(), 17);
 Entity.setMobSkin(getPlayerEnt(), "mob/creeper.png");
 Entity.setSneaking(getPlayerEnt(), false);
 clientMessage("You are a creeper.");
@@ -809,7 +845,7 @@ zombiepigbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 3);
+Entity.setRenderType(getPlayerEnt(), 13);
 Entity.setMobSkin(getPlayerEnt(), "mob/pigzombie.png");
 disguise = pigzombie;
 Entity.setSneaking(getPlayerEnt(), false);
@@ -844,6 +880,37 @@ Entity.setHealth(getPlayerEnt(), 20);
 
 }));
 
+silverfishbtn.setOnClickListener(new View.OnClickListener({
+
+
+onClick:function(){
+
+
+Entity.setRenderType(getPlayerEnt(), 16);
+Entity.setMobSkin(getPlayerEnt(), "mob/silverfish.png");
+clientMessage("You are a silverfish.");
+disguisedi.dismiss();
+btnview = 0;
+disguise = silverfish;
+Entity.setSneaking(getPlayerEnt(), false);
+Entity.setHealth(getPlayerEnt(), 20);
+
+
+ctx.runOnUiThread(new Runnable({
+run:function(){
+try{
+fbutton.setVisibility(View.INVISIBLE);
+}catch(e){
+print("Error: "+e);
+}
+}
+}));
+
+
+}
+
+
+}));
 
 wolfbtn.setOnClickListener(new View.OnClickListener({
 
@@ -930,7 +997,7 @@ endermanbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 11);
+Entity.setRenderType(getPlayerEnt(), 19);
 clientMessage("You are an enderman.");
 disguisedi.dismiss();
 btnview = 0;
@@ -1028,7 +1095,7 @@ invisiblebtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 5);
+Entity.setRenderType(getPlayerEnt(), 1);
 clientMessage("You are invisibe.");
 disguisedi.dismiss();
 btnview = 0;
@@ -1059,15 +1126,13 @@ playerbtn.setOnClickListener(new View.OnClickListener({
 onClick:function(){
 
 
-Entity.setRenderType(getPlayerEnt(), 3);
+Entity.setRenderType(getPlayerEnt(), 21);
 Entity.setMobSkin(getPlayerEnt(), "mob/char.png");
 Entity.setSneaking(getPlayerEnt(), false);
 clientMessage("You are undisguised.");
 disguisedi.dismiss();
 btnview = 0;
 Entity.setHealth(getPlayerEnt(), 20);
-Entity.setAnimalAge(getPlayerEnt(), 0);
-
 
 ctx.runOnUiThread(new Runnable({
 run:function(){
@@ -1507,13 +1572,13 @@ if(shapeshifting==1 && murderer==Player.getEntity()){
 Entity.setRenderType(Player.getEntity(), Entity.getRenderType(victim));
 
 
-if(Entity.getRenderType(victim)==6){
+if(Entity.getRenderType(victim)==5){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/chicken.png");
 
 
-}else if(Entity.getRenderType(victim)==7){
+}else if(Entity.getRenderType(victim)==6){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/cow.png");
@@ -1531,31 +1596,31 @@ Entity.setMobSkin(getPlayerEnt(), "mob/pig.png");
 Entity.setMobSkin(getPlayerEnt(), "mob/sheep_0.png");
 
 
-}else if(Entity.getRenderType(victim)==11){
+}else if(Entity.getRenderType(victim)==13){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/zombie.png");
 
 
-}else if(Entity.getRenderType(victim)==12){
+}else if(Entity.getRenderType(victim)==14){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/skeleton.png");
 
 
-}else if(Entity.getRenderType(victim)==13){
+}else if(Entity.getRenderType(victim)==15){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/spider.png");
 
 
-}else if( Entity.getRenderType(victim)==14){
+}else if( Entity.getRenderType(victim)==17){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/creeper.png");
 
 
-}else if(Entity.getRenderType(victim)==15){
+}else if(Entity.getRenderType(victim)==13){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/pigzombie.png");
@@ -1569,13 +1634,13 @@ Entity.setMobSkin(getPlayerEnt(), "mob/pigzombie.png");
 
 if(victim==Player.getEntity()){
 
-if(Entity.getRenderType(getPlayerEnt())==6){
+if(Entity.getRenderType(getPlayerEnt())==5){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 365, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==7){
+}else if(Entity.getRenderType(getPlayerEnt())==6){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 363, 1, 0);
@@ -1593,31 +1658,31 @@ Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 319, 1, 0);
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 35, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==11){
+}else if(Entity.getRenderType(getPlayerEnt())==13){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 288, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==12){
+}else if(Entity.getRenderType(getPlayerEnt())==14){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 352, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==13){
+}else if(Entity.getRenderType(getPlayerEnt())==15){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 287, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==14){
+}else if(Entity.getRenderType(getPlayerEnt())==17){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 289, 1, 0);
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==15){
+}else if(Entity.getRenderType(getPlayerEnt())==13){
 
 
 Level.dropItem(Player.getX(), Player.getY(), Player.getZ(), 0, 266, 1, 0);
@@ -1690,16 +1755,18 @@ time_runTimers();
 if(Entity.getRenderType(getPlayerEnt()) == witherRenderer.renderType){
 
 
-        toDirectionalVector(playerDir, (getYaw() + 90) * DEG_TO_RAD, getPitch() * DEG_TO_RAD * -1);
+        /*toDirectionalVector(playerDir, (getYaw() + 90) * DEG_TO_RAD, getPitch() * DEG_TO_RAD * -1);
         var player = getPlayerEnt();
         setVelX(player, playerFlySpeed * playerDir[0]);
         setVelY(player, playerFlySpeed * playerDir[1]);
-        setVelZ(player, playerFlySpeed * playerDir[2]);
-
-
+        setVelZ(player, playerFlySpeed * playerDir[2]);*/
+ Player.setCanFly(1);
+ Player.setFlying(1);
  Entity.setHealth(getPlayerEnt(), 100);
+} else {
 
-
+ Player.setCanFly(0);
+ Player.setFlying(0);
 }
 
 
@@ -1708,7 +1775,7 @@ day = ltime < (19200/2);
 night = day?0:8280;
 
 
-if(Entity.getRenderType(getPlayerEnt())==6){
+if(Entity.getRenderType(getPlayerEnt())==5){
 
 
 Player.setHealth(100);
@@ -1750,7 +1817,7 @@ setVelY(getPlayerEnt(), -0.1)
 }
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==7){
+}else if(Entity.getRenderType(getPlayerEnt())==6){
 
 
 //cow sound
@@ -1768,23 +1835,23 @@ setVelY(getPlayerEnt(), -0.1)
 //sheep sound
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==11){
-
-
-if(day){
-Entity.setFireTicks(getPlayerEnt(), 9999);
-}
-
-
-}else if(Entity.getRenderType(getPlayerEnt())==12){
-
-
-if(day){
-Entity.setFireTicks(getPlayerEnt(), 9999);
-}
-
-
 }else if(Entity.getRenderType(getPlayerEnt())==13){
+
+
+if(day){
+Entity.setFireTicks(getPlayerEnt(), 9999);
+}
+
+
+}else if(Entity.getRenderType(getPlayerEnt())==14){
+
+
+if(day){
+Entity.setFireTicks(getPlayerEnt(), 9999);
+}
+
+
+}else if(Entity.getRenderType(getPlayerEnt())==15){
 
 
 Player.setHealth(100);
@@ -1799,11 +1866,11 @@ setVelY(getPlayerEnt(),0.65);
 }
 
 
-}else if( Entity.getRenderType(getPlayerEnt())==14){
+}else if( Entity.getRenderType(getPlayerEnt())==17){
 
 
 
-}else if(Entity.getRenderType(getPlayerEnt())==15){
+}else if(Entity.getRenderType(getPlayerEnt())==13){
 
 
 
@@ -1856,7 +1923,7 @@ age = Entity.getAnimalAge(victim);
 if(victim==getPlayerEnt()){
 
 
-if(Entity.getRenderType(getPlayerEnt())==6){
+if(Entity.getRenderType(getPlayerEnt())==5){
 
 Level.playSound(getPlayerX(), getPlayerY(), getPlayerZ(), "random.click", 100, 30);
  if(Player.getHealth<10)
@@ -1865,7 +1932,7 @@ Level.playSound(getPlayerX(), getPlayerY(), getPlayerZ(), "random.burp", 100, 30
 }
 
 
-}else if(Entity.getRenderType(victim)==7){
+}else if(Entity.getRenderType(victim)==6){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/cow.png");
@@ -1883,31 +1950,31 @@ Entity.setMobSkin(getPlayerEnt(), "mob/pig.png");
 Entity.setMobSkin(getPlayerEnt(), "mob/sheep_0.png");
 
 
-}else if(Entity.getRenderType(victim)==11){
+}else if(Entity.getRenderType(victim)==13){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/zombie.png");
 
 
-}else if(Entity.getRenderType(victim)==12){
+}else if(Entity.getRenderType(victim)==14){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/skeleton.png");
 
 
-}else if(Entity.getRenderType(victim)==13){
+}else if(Entity.getRenderType(victim)==15){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/spider.png");
 
 
-}else if( Entity.getRenderType(victim)==14){
+}else if( Entity.getRenderType(victim)==17){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/creeper.png");
 
 
-}else if(Entity.getRenderType(victim)==15){
+}else if(Entity.getRenderType(victim)==13){
 
 
 Entity.setMobSkin(getPlayerEnt(), "mob/pigzombie.png");
