@@ -440,17 +440,17 @@ disguisela.addView(cowbtn);
 disguisela.addView(chickenbtn);
 disguisela.addView(sheepbtn);
 disguisela.addView(villagerbtn);
-disguisela.addView(villagerbtn);
+//disguisela.addView(villagerbtn);
 disguisela.addView(zombiebtn);
 disguisela.addView(skeletonbtn);
 disguisela.addView(spiderbtn);
 disguisela.addView(creeperbtn);
 disguisela.addView(zombiepigbtn);
-disguisela.addView(wolfbtn);
-disguisela.addView(catbtn); 
-disguisela.addView(irongolembtn);
+//disguisela.addView(wolfbtn);
+//disguisela.addView(catbtn); 
+//disguisela.addView(irongolembtn);
 disguisela.addView(endermanbtn);
-disguisela.addView(silverfishbtn);
+//disguisela.addView(silverfishbtn);
 disguisela.addView(witherbtn);
 //disguisela.addView(blazebtn);
 disguisela.addView(invisiblebtn);
@@ -647,35 +647,6 @@ onClick:function(){
 
 sheepcolorpick();
 disguise = sheep;
-disguisedi.dismiss();
-Entity.setSneaking(getPlayerEnt(), false);
-Entity.setHealth(getPlayerEnt(), 20);
-
-
-ctx.runOnUiThread(new Runnable({
-run:function(){
-try{
-fbutton.setVisibility(View.INVISIBLE);
-}catch(e){
-print("Error: "+e);
-}
-}
-}));
-
-
-}
-
-
-}));
-
-villagerbtn.setOnClickListener(new View.OnClickListener({
-
-
-onClick:function(){
-
-
-villagertypepick();
-disguise = villager;
 disguisedi.dismiss();
 Entity.setSneaking(getPlayerEnt(), false);
 Entity.setHealth(getPlayerEnt(), 20);
